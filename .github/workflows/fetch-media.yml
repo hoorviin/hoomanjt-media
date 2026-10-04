@@ -6,7 +6,7 @@ on:
         description: "Folder name for this video, e.g. 2026-10-coaching"
         required: true
       urls:
-        description: "Image URLs separated by spaces"
+        description: "Photo or video URLs separated by spaces"
         required: true
 permissions:
   contents: write
@@ -23,8 +23,10 @@ jobs:
           mkdir -p "media/$FOLDER"
           i=1
           for u in $URLS; do
-            ext="${u##*.}"; ext="${ext%%\?*}"; case "$ext" in jpg|jpeg|png|webp) ;; *) ext=jpg;; esac
-            curl -sfL -A "hoomanjt-media-fetch/1.0" "$u" -o "media/$FOLDER/p$i.$ext" && echo "$u" >> "media/$FOLDER/SOURCES.txt"
+            ct=$(curl -sfL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)" "$u" -o tmp.bin -w '%{content_type}') || { echo "FAILED $u" >> "media/$FOLDER/SOURCES.txt"; i=$((i+1)); continue; }
+            case "$ct" in image/jpeg*) ext=jpg;; image/png*) ext=png;; image/webp*) ext=webp;; video/mp4*) ext=mp4;; video/quicktime*) ext=mov;; video/webm*) ext=webm;; *) ext=bin;; esac
+            mv tmp.bin "media/$FOLDER/p$i.$ext"
+            echo "p$i.$ext $u" >> "media/$FOLDER/SOURCES.txt"
             i=$((i+1))
           done
       - name: Commit
