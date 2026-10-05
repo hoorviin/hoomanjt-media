@@ -1,0 +1,6 @@
+p1.bin https://incompetech.com/music/royalty-free/mp3-royaltyfree/Inspired.mp3
+p2.bin https://incompetech.com/music/royalty-free/mp3-royaltyfree/Heartwarming.mp3
+p3.bin https://incompetech.com/music/royalty-free/mp3-royaltyfree/Easy%20Lemon.mp3
+p4.bin https://incompetech.com/music/royalty-free/mp3-royaltyfree/Hidden%20Agenda.mp3
+p5.bin https://incompetech.com/music/royalty-free/mp3-royaltyfree/Wholesome.mp3
+p6.bin https://incompetech.com/music/royalty-free/mp3-royaltyfree/Dreamer.mp3
